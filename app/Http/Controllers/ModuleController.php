@@ -12,7 +12,8 @@ class ModuleController extends Controller
      */
     public function index()
     {
-        //
+        $Modules = Module::all();
+        return view('modules.backend.modules', compact('Modules'));
     }
 
     /**
@@ -20,7 +21,7 @@ class ModuleController extends Controller
      */
     public function create()
     {
-        //
+        return view('modules.backend.add_module');
     }
 
     /**
@@ -28,7 +29,14 @@ class ModuleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validData = $request->validate([
+            'name'=>'required|string|max:255',
+            'description'=>'required|string',
+            'slug'=>'required|string|max:255',
+        ]);
+
+        Module::create($validData);
+        return redirect(route('modules.index'))->with('success', 'Module created successfully.');
     }
 
     /**
