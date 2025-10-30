@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Module;
 use Illuminate\Http\Request;
+use PhpParser\Node\Expr\AssignOp\Mod;
 
 class ModuleController extends Controller
 {
@@ -30,13 +31,13 @@ class ModuleController extends Controller
     public function store(Request $request)
     {
         $validData = $request->validate([
-            'name'=>'required|string|max:255',
-            'description'=>'required|string',
-            'slug'=>'required|string|max:255',
+            'name' => 'required|string|max:255',
+            'description' => 'required|string',
+            'slug' => 'required|string|max:255',
         ]);
 
         Module::create($validData);
-        return redirect(route('modules.index'))->with('success', 'Module created successfully.');
+        return redirect(route('modules'))->with('success', 'Module created successfully.');
     }
 
     /**
@@ -52,7 +53,7 @@ class ModuleController extends Controller
      */
     public function edit(Module $module)
     {
-        //
+        
     }
 
     /**
@@ -68,6 +69,7 @@ class ModuleController extends Controller
      */
     public function destroy(Module $module)
     {
-        //
+        Module::destroy($module->id);
+        return redirect(route('modules'))->with('success', 'Module deleted successfully.');
     }
 }
