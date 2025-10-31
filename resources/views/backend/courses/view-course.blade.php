@@ -30,12 +30,14 @@
                        @if ($Courses && $Courses->count() > 0)
                        @foreach ($Courses as $course)
                        <tr>
-                           <td>{{ $course->name }}</td>
+                           <td>{{ $course->title }}</td>
                            <td>{{ $course->description }}</td>
-                           <td>image</td>
+                           <td><img src="{{ asset($course->thumbnail) }}" alt="Thumbnail" width="100"></td>
+
+
                            <td class="text-center">
-                               <a href="{{ route('modules.edit', $course->id) }}" class="btn btn-primary btn-sm me-1">Edit</a>
-                               <form action="{{ route('courses.destroy', $course->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Are you sure you want to delete this module?');">
+                               <a href="" class="btn btn-primary btn-sm me-1">Edit</a>
+                               <form action="" method="POST" class="d-inline" onsubmit="return confirm('Are you sure you want to delete this module?');">
                                    @csrf
                                    @method('DELETE')
                                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>

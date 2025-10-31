@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Course;
 use Illuminate\Http\Request;
 use App\Models\Module;
 
@@ -9,16 +10,25 @@ class DashboardController extends Controller
 {
     public function index(Request $request)
     {
+        $Course = Course::all();
+        return view('frontend.index', compact('Course'));
+    }
+
+    public function showDashboard(Request $request)
+    {
+
         $user = $request->user();
         $Modules = Module::all();
+
+        $test = "hello";
 
         switch ($user->role) {
             case 'admin':
                 return view('backend.index', compact('Modules'));
             case 'student':
-                return view('frontend.index');
+                return redirect()->route('guest');
             default:
-              abort(403, 'Unauthorized action.');
+                abort(403, 'Unauthorized action.');
         }
     }
 }

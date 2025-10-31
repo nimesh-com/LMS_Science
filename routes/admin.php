@@ -12,7 +12,7 @@ Route::prefix('admin')->middleware(['auth', 'verified'])->group(function () {
     Route::get('/modules/create', [ModuleController::class, 'create'])->name('modules.create');
 
     Route::resource('/courses', CourseController::class);
-    Route::get('/manage-classes', [ManageClassController::class, 'index'])->name('manage-classes');
+   
 
     Route::get('/courses', [CourseController::class, 'index'])->name('course-manage');
 
