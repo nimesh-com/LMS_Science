@@ -244,41 +244,47 @@
 
 <!-- Courses Section -->
 <section id="courses" class="courses section">
-
     <!-- Section Title -->
     <div class="container section-title" data-aos="fade-up">
         <h2>Courses</h2>
-        <p>Popular Courses</p>
-    </div><!-- End Section Title -->
+        <p>Explore Our Popular Courses</p>
+    </div>
 
-    <div class="container py-5">
+    <div class="container">
         <div class="row g-4">
             @forelse ($Course as $course)
-            <div class="col-lg-3 col-md-6 d-flex">
-                <div class="card course-card shadow-sm border-0 flex-fill">
-                    <!-- Fixed Image -->
-                    <img src="{{ asset($course->thumbnail) }}" class="card-img-top"
-                        alt="{{ $course->title }}" style="height:200px; object-fit:cover;">
-
-                    <div class="card-body d-flex flex-column">
-                        <h5 class="card-title">{{ $course->title }}</h5>
-
-                        <div class="d-flex justify-content-between align-items-center mt-3">
-                            <p class="mb-0 fw-bold text-primary">{{ 'LKR ' . number_format($course->price, 2) }}</p>
-                            <a href="{{ route('enroll', $course->id) }}" class="btn btn-sm btn-primary"><i class="bi bi-arrow-right-circle me-2"></i>Enroll</a>
+            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+                <div class="course-item rounded-4 overflow-hidden shadow-sm border-0">
+                    <div class="course-img position-relative">
+                        <img src="{{ asset($course->thumbnail) }}" class="img-fluid w-100" 
+                            alt="{{ $course->title }}" style="height: 250px; object-fit: cover;">
+                        <div class="price-tag position-absolute top-0 end-0 bg-primary text-white m-3 py-2 px-3 rounded-pill">
+                            {{ 'LKR ' . number_format($course->price, 2) }}
+                        </div>
+                    </div>
+                    <div class="course-content p-4">
+                        <h4 class="mb-3">{{ $course->title }}</h4>
+                        <div class="course-meta d-flex justify-content-between align-items-center">
+                            <div class="course-stats">
+                                <span class="me-3"><i class="bi bi-clock me-1"></i> 3h 30m</span>
+                                <span><i class="bi bi-people me-1"></i> 56 students</span>
+                            </div>
+                            <a href="{{ route('enroll', $course->id) }}" 
+                               class="btn btn-primary rounded-pill px-4">
+                                Enroll Now <i class="bi bi-arrow-right ms-2"></i>
+                            </a>
                         </div>
                     </div>
                 </div>
             </div>
             @empty
-            <div class="col-12 text-center">
-                <p>No Courses Available</p>
+            <div class="col-12 text-center py-5">
+                <i class="bi bi-inbox display-1 text-muted"></i>
+                <p class="mt-3 text-muted">No Courses Available</p>
             </div>
             @endforelse
         </div>
     </div>
-
-
 </section><!-- /Courses Section -->
 
 <!-- Trainers Index Section -->

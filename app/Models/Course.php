@@ -15,4 +15,9 @@ class Course extends Model
         'price',
         'thumbnail',
     ];
+
+    public function enrollments()
+    {
+        return $this->hasMany(EnrollCourse::class, 'course_id');
+    }
 }

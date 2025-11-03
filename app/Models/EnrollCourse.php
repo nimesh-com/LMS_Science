@@ -11,4 +11,19 @@ class EnrollCourse extends Model
         'course_id',
         'student_id',
     ];
+
+    public function course()
+    {
+        return $this->belongsTo(Course::class, 'course_id');
+    }
+
+    public function student()
+    {
+        return $this->belongsTo(User::class, 'student_id');
+    }
+
+    public function payments()
+    {
+        return $this->hasMany(Payment::class,'student_id','student_id');
+    }
 }

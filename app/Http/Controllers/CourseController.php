@@ -53,7 +53,7 @@ class CourseController extends Controller
 
 
         Course::create($validatedData);
-        return redirect(route('course-manage'))->with('success', 'Course created successfully.');
+        return redirect(route('courses'))->with('success', 'Course created successfully.');
     }
 
 
@@ -102,7 +102,7 @@ class CourseController extends Controller
         }
 
         $course->update($validatedData);
-        return redirect(route('course-manage'))->with('success', 'Course updated successfully.');
+        return redirect(route('courses'))->with('success', 'Course updated successfully.');
     }
 
     /**
