@@ -12,6 +12,7 @@ class Course extends Model
         'grade_id',
         'teacher_id',
         'description',
+        'price',
         'thumbnail',
     ];
 }

@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ManageClassController;
 use App\Http\Controllers\ModuleController;
 use App\Http\Controllers\CourseController;
+use App\Models\Role;
 
 Route::prefix('admin')->middleware(['auth', 'verified'])->group(function () {
 
@@ -12,6 +13,7 @@ Route::prefix('admin')->middleware(['auth', 'verified'])->group(function () {
     Route::get('/modules/create', [ModuleController::class, 'create'])->name('modules.create');
 
     Route::resource('/courses', CourseController::class);
+    
    
 
     Route::get('/courses', [CourseController::class, 'index'])->name('course-manage');

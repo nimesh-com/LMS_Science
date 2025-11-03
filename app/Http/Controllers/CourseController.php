@@ -38,6 +38,7 @@ class CourseController extends Controller
             'description' => 'nullable|string',
             'thumbnail' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'teacher_id' => 'required|exists:users,id',
+            'price' => 'required|numeric|min:0',
         ]);
 
 
@@ -69,7 +70,9 @@ class CourseController extends Controller
      */
     public function edit(Course $course)
     {
-        //
+        $courses = Course::find($course->id);
+        $Instructors = User::where('role', 'admin')->get();
+        return view('backend.courses.edit-course', compact('courses', 'Instructors'));
     }
 
     /**
@@ -77,7 +80,29 @@ class CourseController extends Controller
      */
     public function update(Request $request, Course $course)
     {
-        //
+        $thumbnailPath = $course->thumbnail;
+        $validatedData = $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'thumbnail' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'teacher_id' => 'required|exists:users,id',
+            'price' => 'required|numeric|min:0',
+        ]);
+
+        if ($request->hasFile('thumbnail')) {
+            //remove old thumbnail if exists
+            if ($thumbnailPath && file_exists(public_path($thumbnailPath))) {
+                unlink(public_path($thumbnailPath));
+            }
+            $imageName = time() . '.' . $request->thumbnail->extension();
+            $request->thumbnail->move(public_path('course/thumbnails'), $imageName);
+            $validatedData['thumbnail'] = 'course/thumbnails/' . $imageName;
+        } else {
+            $validatedData['thumbnail'] = $thumbnailPath;
+        }
+
+        $course->update($validatedData);
+        return redirect(route('course-manage'))->with('success', 'Course updated successfully.');
     }
 
     /**
@@ -85,6 +110,7 @@ class CourseController extends Controller
      */
     public function destroy(Course $course)
     {
-        //
+        $course->delete();
+        return redirect()->back()->with('success', 'Course deleted successfully.');
     }
 }

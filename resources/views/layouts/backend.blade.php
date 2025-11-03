@@ -28,7 +28,7 @@
     <div id="wrapper">
 
         <!-- Sidebar -->
-        @include('backend.partial.sidebar',['Modules'=>$Modules ?? []])
+        @include('backend.partial.sidebar',['Modules'=>$Modules ?? [], 'Course'=>$Course ?? 0])
         <!-- End of Sidebar -->
 
         <!-- Content Wrapper -->

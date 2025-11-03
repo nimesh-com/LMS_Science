@@ -20,11 +20,13 @@ class DashboardController extends Controller
         $user = $request->user();
         $Modules = Module::all();
 
+        $Course = Course::count();
+
         $test = "hello";
 
         switch ($user->role) {
             case 'admin':
-                return view('backend.index', compact('Modules'));
+                return view('backend.index', compact('Modules', 'Course'));
             case 'student':
                 return redirect()->route('guest');
             default:

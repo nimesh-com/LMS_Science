@@ -54,7 +54,7 @@
         @csrf
       </form>
       @else
-      <a class="btn btn-primary" href="{{ route('login') }}">Login</a>
+      <a class="btn btn-primary" href="{{ route('register') }}">sign up</a>
       @endif
     </div>
 
