@@ -9,8 +9,16 @@ class Student extends Model
     protected $table = 'students';
     protected $fillable = [
         'name',
-        'email',
-        'password',
-        'grade_id',
+        'user_id',
+        'phone',
+        'address',
+        'admission_number',
+        'profile_image',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id', 'user_id');
+    }
+
 }

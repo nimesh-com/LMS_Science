@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Student;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class StudentController extends Controller
 {
@@ -12,7 +13,8 @@ class StudentController extends Controller
      */
     public function index()
     {
-        return view('frontend.student.index');
+        $student = Student::where('user_id', Auth::user()->id)->first();
+        return view('frontend.student.index', compact('student'));
     }
 
     /**

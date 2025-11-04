@@ -2,11 +2,28 @@
 
 @section('content')
 <style>
-    .sidebar { min-height: 100vh; }
-    .card-shadow { box-shadow: 0 6px 18px rgba(20,20,50,0.06); }
-    .video-thumb { height: 140px; object-fit: cover; border-radius: 8px; }
-    .section { padding: 20px; display: none; }
-    .section.active { display: block; }
+    .sidebar {
+        min-height: 100vh;
+    }
+
+    .card-shadow {
+        box-shadow: 0 6px 18px rgba(20, 20, 50, 0.06);
+    }
+
+    .video-thumb {
+        height: 140px;
+        object-fit: cover;
+        border-radius: 8px;
+    }
+
+    .section {
+        padding: 20px;
+        display: none;
+    }
+
+    .section.active {
+        display: block;
+    }
 </style>
 
 <div class="container-fluid">
@@ -19,7 +36,8 @@
             </div>
 
             <div class="mb-3 d-flex align-items-center">
-                <img src="{{ Auth::user()->avatar ?? 'https://via.placeholder.com/48' }}" class="rounded-circle me-2" width="48" height="48">
+                <img src="{{ $student->profile_image ? asset($student->profile_image) : asset('images/logo.jpg') }}"
+                    class="rounded-circle me-2" width="50" height="50" alt="Profile Image">
                 <div>
                     <div class="fw-semibold">{{ Auth::user()->name ?? 'Student' }}</div>
                 </div>
@@ -40,7 +58,6 @@
             <!-- Dashboard Section -->
             <section id="dashboard" class="section active">
                 <h4 class="mb-4">Dashboard</h4>
-                
                 <!-- Announcements Card -->
                 <div class="card card-shadow mb-4">
                     <div class="card-header">
@@ -146,23 +163,23 @@
 </div>
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    const navLinks = document.querySelectorAll('#lmsNav .nav-link');
-    
-    navLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
-            e.preventDefault();
-            
-            // Remove active class from all links and sections
-            navLinks.forEach(l => l.classList.remove('active'));
-            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-            
-            // Add active class to clicked link and corresponding section
-            this.classList.add('active');
-            const sectionId = this.getAttribute('data-section');
-            document.getElementById(sectionId).classList.add('active');
+    document.addEventListener('DOMContentLoaded', function() {
+        const navLinks = document.querySelectorAll('#lmsNav .nav-link');
+
+        navLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+
+                // Remove active class from all links and sections
+                navLinks.forEach(l => l.classList.remove('active'));
+                document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+
+                // Add active class to clicked link and corresponding section
+                this.classList.add('active');
+                const sectionId = this.getAttribute('data-section');
+                document.getElementById(sectionId).classList.add('active');
+            });
         });
     });
-});
 </script>
 @endsection
