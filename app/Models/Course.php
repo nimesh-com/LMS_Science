@@ -6,5 +6,18 @@ use Illuminate\Database\Eloquent\Model;
 
 class Course extends Model
 {
-    //
+    protected $table = 'courses';
+    protected $fillable = [
+        'title',
+        'grade_id',
+        'teacher_id',
+        'description',
+        'price',
+        'thumbnail',
+    ];
+
+    public function enrollments()
+    {
+        return $this->hasMany(EnrollCourse::class, 'course_id');
+    }
 }
