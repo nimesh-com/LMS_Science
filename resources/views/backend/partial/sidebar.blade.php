@@ -1,74 +1,69 @@
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
-            <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
-                <div class="sidebar-brand-icon rotate-n-15">
-                    <i class="fas fa-laugh-wink"></i>
-                </div>
-                <div class="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div>
+    <!-- Sidebar - Brand -->
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{route('dashboard')}}">
+        <div class="sidebar-brand-icon rotate-n-15">
+            <i class="fas fa-laugh-wink"></i>
+        </div>
+        <div class="sidebar-brand-text mx-3">Smart <sup>Science</sup></div>
+    </a>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider my-0">
+
+    <!-- Nav Item - Dashboard -->
+    <li class="nav-item active">
+        <a class="nav-link" href="{{route('dashboard')}}">
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>Dashboard</span></a>
+    </li>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider">
+
+    <!-- Heading -->
+
+    <!-- Modules List -->
+    <ul class="nav flex-column">
+        @forelse($Modules as $module)
+        <li class="nav-item">
+            @php
+            // Prepare a safe route or URL
+            $link = null;
+            if (!empty($module->slug)) {
+            if (Route::has($module->slug)) {
+            $link = route($module->slug);
+            } else {
+            // If route name doesn't exist, use slug as direct URL (if it looks like a path)
+            $link = url($module->slug);
+            }
+            }
+            @endphp
+
+            @if($link)
+            <a class="nav-link" href="{{ $link }}">
+                <i class="fas fa-fw fa-chart-area"></i>
+                <span>{{ $module->name }}</span>
             </a>
+            @else
+            <a class="nav-link disabled" href="#">
+                <i class="fas fa-fw fa-exclamation-triangle"></i>
+                <span>{{ $module->name }}</span>
+            </a>
+            @endif
+        </li>
+        @empty
+        <li class="ml-3">
+            <a href="{{ url()->previous() }}" class="btn btn-secondary btn-icon-split">
+                <span class="icon text-white-50">
+                    <i class="fas fa-arrow-left"></i>
+                </span>
+                <span class="text">Back</span>
+            </a>
+        </li>
+        @endforelse
 
-            <!-- Divider -->
-            <hr class="sidebar-divider my-0">
+    </ul>
 
-            <!-- Nav Item - Dashboard -->
-            <li class="nav-item active">
-                <a class="nav-link" href="index.html">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Dashboard</span></a>
-            </li>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-
-            <!-- Heading -->
-            <div class="sidebar-heading">
-               Manage Courses
-            </div>
-
-            <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-                    aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fas fa-fw fa-cog"></i>
-                    <span>Courses Manage</span>
-                </a>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Manage Courses</h6>
-                        <a class="collapse-item" href="{{route('manage-class')}}">View Courses</a>
-                    </div>
-                </div>
-            </li>
-
-              <li class="nav-item">
-                <a class="nav-link" href="charts.html">
-                    <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Online Class Manage</span></a>
-            </li>
-
-
-
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-
-            <!-- Heading -->
-            <div class="sidebar-heading">
-                Manage Student 
-            </div>
-
-            <!-- Nav Item - Charts -->
-            <li class="nav-item">
-                <a class="nav-link" href="charts.html">
-                    <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Student Manage</span></a>
-            </li>
-
-            <!-- Nav Item - Tables -->
-            <li class="nav-item">
-                <a class="nav-link" href="tables.html">
-                    <i class="fas fa-fw fa-table"></i>
-                    <span>Class Fees Manage</span></a>
-            </li>
-
-        </ul>
+    <!-- End Modules List -->
+</ul>

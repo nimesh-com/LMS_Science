@@ -244,99 +244,47 @@
 
 <!-- Courses Section -->
 <section id="courses" class="courses section">
-
     <!-- Section Title -->
     <div class="container section-title" data-aos="fade-up">
         <h2>Courses</h2>
-        <p>Popular Courses</p>
-    </div><!-- End Section Title -->
-
-    <div class="container">
-
-        <div class="row">
-
-            <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
-                <div class="course-item">
-                    <img src="{{asset('frontend/assets/img/course/course-1.webp')}}" class="img-fluid" alt="...">
-                    <div class="course-content">
-                        <div class="d-flex justify-content-between align-items-center mb-3">
-                            <p class="category">Web Development</p>
-                            <p class="price">$169</p>
-                        </div>
-
-                        <h3><a href="course-details.html">Website Design</a></h3>
-                        <p class="description">Et architecto provident deleniti facere repellat nobis iste. Id facere quia quae dolores dolorem tempore.</p>
-                        <div class="trainer d-flex justify-content-between align-items-center">
-                            <div class="trainer-profile d-flex align-items-center">
-                                <img src="{{asset('frontend/assets/img/person/person-m-7.webp')}}" class="img-fluid" alt="">
-                                <a href="" class="trainer-link">Antonio</a>
-                            </div>
-                            <div class="trainer-rank d-flex align-items-center">
-                                <i class="bi bi-person user-icon"></i>&nbsp;50
-                                &nbsp;&nbsp;
-                                <i class="bi bi-heart heart-icon"></i>&nbsp;65
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div> <!-- End Course Item-->
-
-            <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-md-0" data-aos="zoom-in" data-aos-delay="200">
-                <div class="course-item">
-                    <img src="{{asset('frontend/assets/img/course/course-2.webp')}}" class="img-fluid" alt="...">
-                    <div class="course-content">
-                        <div class="d-flex justify-content-between align-items-center mb-3">
-                            <p class="category">Marketing</p>
-                            <p class="price">$250</p>
-                        </div>
-
-                        <h3><a href="course-details.html">Search Engine Optimization</a></h3>
-                        <p class="description">Et architecto provident deleniti facere repellat nobis iste. Id facere quia quae dolores dolorem tempore.</p>
-                        <div class="trainer d-flex justify-content-between align-items-center">
-                            <div class="trainer-profile d-flex align-items-center">
-                                <img src="{{asset('frontend/assets/img/person/person-f-14.webp')}}" class="img-fluid" alt="">
-                                <a href="" class="trainer-link">Lana</a>
-                            </div>
-                            <div class="trainer-rank d-flex align-items-center">
-                                <i class="bi bi-person user-icon"></i>&nbsp;35
-                                &nbsp;&nbsp;
-                                <i class="bi bi-heart heart-icon"></i>&nbsp;42
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div> <!-- End Course Item-->
-
-            <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-lg-0" data-aos="zoom-in" data-aos-delay="300">
-                <div class="course-item">
-                    <img src="{{asset('frontend/assets/img/course/course-3.webp')}}" class="img-fluid" alt="...">
-                    <div class="course-content">
-                        <div class="d-flex justify-content-between align-items-center mb-3">
-                            <p class="category">Content</p>
-                            <p class="price">$180</p>
-                        </div>
-
-                        <h3><a href="course-details.html">Copywriting</a></h3>
-                        <p class="description">Et architecto provident deleniti facere repellat nobis iste. Id facere quia quae dolores dolorem tempore.</p>
-                        <div class="trainer d-flex justify-content-between align-items-center">
-                            <div class="trainer-profile d-flex align-items-center">
-                                <img src="{{asset('frontend/assets/img/person/person-m-12.webp')}}" class="img-fluid" alt="">
-                                <a href="" class="trainer-link">Brandon</a>
-                            </div>
-                            <div class="trainer-rank d-flex align-items-center">
-                                <i class="bi bi-person user-icon"></i>&nbsp;20
-                                &nbsp;&nbsp;
-                                <i class="bi bi-heart heart-icon"></i>&nbsp;85
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div> <!-- End Course Item-->
-
-        </div>
-
+        <p>Explore Our Popular Courses</p>
     </div>
 
+    <div class="container">
+        <div class="row g-4">
+            @forelse ($Course as $course)
+            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+                <div class="course-item rounded-4 overflow-hidden shadow-sm border-0">
+                    <div class="course-img position-relative">
+                        <img src="{{ asset($course->thumbnail) }}" class="img-fluid w-100" 
+                            alt="{{ $course->title }}" style="height: 250px; object-fit: cover;">
+                        <div class="price-tag position-absolute top-0 end-0 bg-primary text-white m-3 py-2 px-3 rounded-pill">
+                            {{ 'LKR ' . number_format($course->price, 2) }}
+                        </div>
+                    </div>
+                    <div class="course-content p-4">
+                        <h4 class="mb-3">{{ $course->title }}</h4>
+                        <div class="course-meta d-flex justify-content-between align-items-center">
+                            <div class="course-stats">
+                                <span class="me-3"><i class="bi bi-clock me-1"></i> 3h 30m</span>
+                                <span><i class="bi bi-people me-1"></i> 56 students</span>
+                            </div>
+                            <a href="{{ route('enroll', $course->id) }}" 
+                               class="btn btn-primary rounded-pill px-4">
+                                Enroll Now <i class="bi bi-arrow-right ms-2"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @empty
+            <div class="col-12 text-center py-5">
+                <i class="bi bi-inbox display-1 text-muted"></i>
+                <p class="mt-3 text-muted">No Courses Available</p>
+            </div>
+            @endforelse
+        </div>
+    </div>
 </section><!-- /Courses Section -->
 
 <!-- Trainers Index Section -->
