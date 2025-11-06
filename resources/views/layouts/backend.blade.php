@@ -17,6 +17,11 @@
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
 
+    <!-- Bootstrap icon CDN -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
     <!-- Custom styles for this template-->
     <link href="{{asset('backend/assets/css/sb-admin-2.min.css')}}" rel="stylesheet">
 
@@ -74,6 +79,10 @@
 
     <!-- Logout Modal-->
     @include('backend.partial.logoutModel')
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
 
     <!-- Bootstrap core JavaScript-->
     <script src="{{asset('backend/assets/vendor/jquery/jquery.min.js')}}"></script>

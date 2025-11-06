@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\TutorClass;
 
 class StudentController extends Controller
 {
@@ -13,8 +14,9 @@ class StudentController extends Controller
      */
     public function index()
     {
+        $OnlinceClasses = TutorClass::all();
         $student = Student::where('user_id', Auth::user()->id)->first();
-        return view('frontend.student.index', compact('student'));
+        return view('frontend.student.index', compact('student', 'OnlinceClasses'));
     }
 
     /**
